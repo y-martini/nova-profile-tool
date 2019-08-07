@@ -1,0 +1,29 @@
+{
+    "name": "yuriy-martini/nova-profile-tool",
+    "description": "A Laravel Nova tool.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "YuriyMartini\\Nova\\Tools\\Profile\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "YuriyMartini\\Nova\\Tools\\Profile\\ToolServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
