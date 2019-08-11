@@ -2,10 +2,10 @@
 
 namespace YuriyMartini\Nova\Tools\Profile;
 
-use Laravel\Nova\Nova;
-use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Nova;
 use YuriyMartini\Nova\Tools\Profile\Http\Middleware\Authorize;
 
 class ToolServiceProvider extends ServiceProvider
@@ -40,7 +40,8 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova', Authorize::class])
-                ->prefix('nova-vendor/profile')
+                ->prefix('/profile')
+                ->namespace('YuriyMartini\Nova\Tools\Profile\Http\Controllers')
                 ->group(__DIR__.'/../routes/api.php');
     }
 

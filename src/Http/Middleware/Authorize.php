@@ -1,8 +1,12 @@
 <?php
 
-namespace YuriyMartini\Profile\Http\Middleware;
+namespace YuriyMartini\Nova\Tools\Profile\Http\Middleware;
 
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Laravel\Nova\Nova;
+use Laravel\Nova\Tool;
 use YuriyMartini\Nova\Tools\Profile\Profile;
 
 class Authorize
@@ -10,9 +14,9 @@ class Authorize
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  Closure  $next
+     * @return Response
      */
     public function handle($request, $next)
     {
@@ -24,7 +28,7 @@ class Authorize
     /**
      * Determine whether this tool belongs to the package.
      *
-     * @param \Laravel\Nova\Tool $tool
+     * @param Tool $tool
      * @return bool
      */
     public function matchesTool($tool)
