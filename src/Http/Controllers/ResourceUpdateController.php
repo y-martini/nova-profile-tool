@@ -26,7 +26,7 @@
 
             $resource->authorizeToUpdate($request);
 
-            $request->route()->setParameter('resourceId', $resource->model()->id);
+            $request->route()->setParameter('resourceId', $resource->model()->getKey());
 
             $resource::validateForUpdate($request);
 
@@ -52,7 +52,7 @@
             return response()->json([
                 'id' => $model->getKey(),
                 'resource' => $model->attributesToArray(),
-                'redirect' => '/profile',
+                'redirect' => '/profile', // todo: make it dynamic
             ]);
         }
 

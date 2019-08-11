@@ -23,6 +23,7 @@ class ResourceShowController extends Controller
         return response()->json([
             'panels' => $resource->availablePanelsForDetail($request),
             'resource' => $resource->serializeForDetail($request),
+            'resourceId' => $this->getModel($request)->getKey(),
         ]);
     }
 }

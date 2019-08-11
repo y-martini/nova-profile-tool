@@ -58,6 +58,7 @@
             loading: true,
 
             resourceName: 'users', // todo: make it dynamic
+            resourceId: null,
             resource: null,
             panels: [],
         }),
@@ -119,10 +120,11 @@
                 return Minimum(
                         Nova.request().get('/profile/get')
                     )
-                    .then(({ data: { panels, resource } }) => {
+                    .then(({ data: { panels, resource, resourceId } }) => {
                         this.panels = panels;
                         this.resource = resource;
-                        this.loading = false
+                        this.resourceId = resourceId;
+                        this.loading = false;
                     })
                     .catch(error => {
                         if (error.response.status >= 500) {
@@ -187,9 +189,6 @@
 
                     return _.toArray(panels)
                 }
-            },
-            resourceId() {
-                return this.resource ? this.resource.id : null;
             },
         },
     }

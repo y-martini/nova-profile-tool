@@ -38,19 +38,13 @@
     export default {
         name: "Update",
 
-        extends: 'ResourceUpdate', // note: extends laravel/nova/resources/js/views/Update.vue
+        extends: 'ResourceUpdate', // note: view laravel/nova/resources/js/views/Update.vue
 
         mixins: [InteractsWithResourceInformation],
 
-        props: {
-            resourceId: {
-                required: true,
-            },
-        },
-
         data: () => ({
             resourceName: 'users', // todo: make it dynamic
-            relationResponse: null,
+            resourceId: null,
             loading: true,
             submittedViaUpdateAndContinueEditing: false,
             submittedViaUpdateResource: false,
@@ -76,14 +70,21 @@
                 this.fields = [];
 
                 const {
-                    data: { panels, fields },
+                    data: { panels, fields, resourceId },
                 } = await Nova.request()
                     .get(`/profile/update-fields`, {
                     })
                     .catch(error => {
-                        console.error(error)
+                        console.error(error);
+                        this.$toasted.show(
+                            this.__(
+                                'An error occurred.'
+                            ),
+                            { type: 'error' }
+                        )
                     });
 
+                this.resourceId = resourceId;
                 this.panels = panels;
                 this.fields = fields;
                 this.loading = false
@@ -162,15 +163,7 @@
             },
 
             singularName() {
-                if (this.relationResponse) {
-                    return this.relationResponse.singularLabel
-                }
-
                 return this.resourceInformation.singularLabel
-            },
-
-            isRelation() {
-                return Boolean(this.viaResourceId && this.viaRelationship)
             },
 
             /**
@@ -184,7 +177,7 @@
                 return _.map(this.panels, panel => {
                     return {
                         name: panel.name,
-                        fields: _.filter(this.fields, field => field.panel == panel.name),
+                        fields: _.filter(this.fields, field => field.panel === panel.name),
                     }
                 })
             },
