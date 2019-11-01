@@ -15,6 +15,8 @@
          */
         protected function getResource(NovaRequest $request)
         {
+            $request->route()->setParameter('resource', 'users');
+
             return $request->newResourceWith($this->getModel($request));
         }
 
