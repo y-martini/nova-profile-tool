@@ -2,10 +2,9 @@
 
 namespace YuriyMartini\Nova\Tools\Profile;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
-use Laravel\Nova\Nova;
 use YuriyMartini\Nova\Tools\Profile\Http\Middleware\Authorize;
 
 class ToolServiceProvider extends ServiceProvider
@@ -22,10 +21,6 @@ class ToolServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             $this->routes();
         });
-
-        Nova::serving(function (ServingNova $event) {
-            //
-        });
     }
 
     /**
@@ -35,14 +30,14 @@ class ToolServiceProvider extends ServiceProvider
      */
     protected function routes()
     {
-        if ($this->app->routesAreCached()) {
+        if (App::routesAreCached()) {
             return;
         }
 
         Route::middleware(['nova', Authorize::class])
-                ->prefix('/profile')
-                ->namespace('YuriyMartini\Nova\Tools\Profile\Http\Controllers')
-                ->group(__DIR__.'/../routes/api.php');
+            ->prefix('/profile')
+            ->namespace('YuriyMartini\Nova\Tools\Profile\Http\Controllers')
+            ->group(__DIR__.'/../routes/api.php');
     }
 
     /**

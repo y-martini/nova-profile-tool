@@ -2,7 +2,8 @@
 
 namespace YuriyMartini\Nova\Tools\Profile;
 
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\View;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
 
@@ -18,7 +19,6 @@ class Profile extends Tool
     public function boot()
     {
         Nova::script('profile', __DIR__.'/../dist/js/tool.js');
-        Nova::style('profile', __DIR__.'/../dist/css/tool.css');
     }
 
     /**
@@ -33,10 +33,10 @@ class Profile extends Tool
     /**
      * Build the view that renders the navigation links for the tool.
      *
-     * @return View
+     * @return ViewContract
      */
     public function renderNavigation()
     {
-        return view('profile::navigation')->with('render', $this->renderNavigation);
+        return View::make('profile::navigation')->with('render', $this->renderNavigation);
     }
 }
