@@ -17,7 +17,7 @@
 
             <!-- Update Button -->
             <div class="flex items-center">
-                <cancel-button />
+                <cancel-button @click="$router.back()"/>
 
                 <progress-button
                         dusk="update-button"
